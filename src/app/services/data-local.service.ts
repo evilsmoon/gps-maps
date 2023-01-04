@@ -6,7 +6,7 @@ import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
   providedIn: 'root'
 })
 export class DataLocalService {
-  private dbInstance?: SQLiteObject;
+  private dbInstance!: SQLiteObject;
 
   readonly db_name: string = "productos.db";
   readonly db_table: string = "productos";
@@ -23,17 +23,15 @@ export class DataLocalService {
           this.dbInstance = sqLite;
           sqLite.executeSql(`
               CREATE TABLE IF NOT EXISTS ${this.db_table} (
-                _id  INTEGER PRIMARY KEY
-                nombre TEXT,
-                tipo TEXT,
-                marca TEXT,
+                codigo INTEGER PRIMARY KEY,
+                producto TEXT,
+                stock INTEGER,
                 precio REAL,
-                proveedor TEXT,
               )`, [])
             .then((res) => {
               alert(JSON.stringify(res));
             })
-            .catch((error) => alert(JSON.stringify(error)));
+            .catch((error) => alert("SQLLITE: "+JSON.stringify(error)));
         })
         .catch((error) => alert(JSON.stringify(error)));
     });   

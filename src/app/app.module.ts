@@ -22,7 +22,6 @@ import { AppComponent } from './app.component';
     NativeStorage,
     InAppBrowser,
     SQLite,
-    SQLiteObject,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],
   bootstrap: [AppComponent],
