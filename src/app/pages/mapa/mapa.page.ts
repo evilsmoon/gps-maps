@@ -38,24 +38,39 @@ export class MapaPage implements OnInit {
 
   ngAfterViewInit() {
     // console.log(this.ruta)
+    mapboxgl.accessToken = 'pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ';
     if (this.ruta.length == 1){
-      this.drawMap(this.ruta[0].lat,this.ruta[0].log)
+      const map = new mapboxgl.Map({
+        style: 'mapbox://styles/mapbox/light-v9',
+        center: [this.ruta[0].log, this.ruta[0].lat],
+        zoom: 15.5,
+        pitch: 45,
+        bearing: -17.6,
+        container: 'map'
+      });
+      this.drawMap(this.ruta[0].lat,this.ruta[0].log,map)
+      // .setLngLat([-78.49687202383572, -0.21161780956462992])
+      this.addMarker(-78.49687202383572, -0.21161780956462992,map)
+    }
+    else {
+      const map = new mapboxgl.Map({
+        style: 'mapbox://styles/mapbox/light-v9',
+        center: [this.ruta[0].log, this.ruta[0].lat],
+        zoom: 15.5,
+        pitch: 45,
+        bearing: -17.6,
+        container: 'map'
+      });
+      this.drawMap(this.ruta[0].lat,this.ruta[0].log,map)
+
+      for (let i = 1 ; i < this.ruta.length; i++){
+        this.addMarker(this.ruta[i].lat,this.ruta[i].log,map)
+      }
     }
 
   }
 
-  drawMap(lat:number,lng:number){
-    mapboxgl.accessToken = 'pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ';
-
-    const map = new mapboxgl.Map({
-      style: 'mapbox://styles/mapbox/light-v9',
-      center: [lng, lat],
-      zoom: 15.5,
-      pitch: 45,
-      bearing: -17.6,
-      container: 'map'
-    });
-
+  drawMap(lat:number,lng:number, map:any){
     map.on('load', () => {
 
       map.resize();
@@ -105,6 +120,12 @@ export class MapaPage implements OnInit {
       }, labelLayerId);
     });
 
+  }
+
+  addMarker(lat:number,log:number,map:any){
+    new mapboxgl.Marker()
+      .setLngLat([lat,log])
+      .addTo(map);
   }
 
 }
