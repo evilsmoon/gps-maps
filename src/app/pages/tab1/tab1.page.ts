@@ -9,14 +9,14 @@ import { Position } from '../../models/position.models';
   styleUrls: ['tab1.page.scss']
 })
 export class Tab1Page {
-  historial!: Position[];
+  historial: Position[] = [];
   // lat!:number;
   // lon!:number;
 
   constructor( private geo:Geolocation, private geo_data:GpsService ) {
     // Current
     // save possition 
-    this.geo_data.getLines('-78.488217%2C-0.175448%3B-78.486054%2C-0.191163');
+    // this.geo_data.getLines('-78.488217%2C-0.175448%3B-78.486054%2C-0.191163');
   }
 
   // ubicacion(){
@@ -32,6 +32,6 @@ export class Tab1Page {
   // }
 
   ionViewWillEnter(){
-    this.historial = this.geo_data.Positions || [];
+    this.historial = this.geo_data.Positions;
   }
 }

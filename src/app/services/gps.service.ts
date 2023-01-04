@@ -25,7 +25,6 @@ export class GpsService {
     const nueva_position = new Position(lat, lon);
     this.historial.unshift(nueva_position);
     this.native.setItem("historial", this.historial);
-    // this.nav.navigateForward("/historial");
   }
 
   saveRuta(rut: Position[]) {
@@ -46,11 +45,11 @@ export class GpsService {
     return [...this.ruta];
   }
 
-  getLines(coordinates: string) {
-    return this.httpClient.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?alternatives=false&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=false&access_token=pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ`,).subscribe((resp) => {
-      console.log(resp);
+  // getLines(coordinates: string) {
+  //   return this.httpClient.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?alternatives=false&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=false&access_token=pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ`,).subscribe((resp) => {
+  //     console.log(resp);
 
-    })
+  //   })
 
-  }
+  // }
 }
