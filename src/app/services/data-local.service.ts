@@ -18,6 +18,18 @@ export class DataLocalService {
     this.databaseConn();
   }
 
+  login(email: string, password: string) {
+    console.log(email);
+    console.log(password);
+    if (email != "admin"
+      || password != "admin") {
+      return false;
+    }
+    return true;
+
+  }
+
+
   databaseConn() {
     this.platform.ready().then(() => {
       this.sqlite
