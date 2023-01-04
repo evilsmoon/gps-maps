@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
-import { Producto } from '../pages/models/productos.model';
+import { Producto } from '../models/productos.model';
 
 @Injectable({
   providedIn: 'root',
