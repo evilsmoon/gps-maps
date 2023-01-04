@@ -11,11 +11,11 @@ declare var mapboxgl: any;
 })
 export class MapaPage implements OnInit {
 
-  ruta:Position[] = [];
+  ruta: Position[] = [];
   lat!: number;
   lng!: number;
 
-  constructor( private geo_data:GpsService ) {
+  constructor(private geo_data: GpsService) {
   }
 
   ngOnInit() {
@@ -38,17 +38,17 @@ export class MapaPage implements OnInit {
 
   ngAfterViewInit() {
     // console.log(this.ruta)
-    if (this.ruta.length == 1){
-      this.drawMap(this.ruta[0].lat,this.ruta[0].log)
+    if (this.ruta.length == 1) {
+      this.drawMap(this.ruta[0].lat, this.ruta[0].log)
     }
 
   }
 
-  drawMap(lat:number,lng:number){
+  drawMap(lat: number, lng: number) {
     mapboxgl.accessToken = 'pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ';
 
     const map = new mapboxgl.Map({
-      style: 'mapbox://styles/mapbox/light-v9',
+      style: 'mapbox://styles/mapbox/streets-v12',
       center: [lng, lat],
       zoom: 15.5,
       pitch: 45,
@@ -61,48 +61,135 @@ export class MapaPage implements OnInit {
       map.resize();
 
       // Marker
-      new mapboxgl.Marker()
-        .setLngLat([lng, lat])
-        .addTo(map);
+      // new mapboxgl.Marker()
+      //   .setLngLat([lng, lat])
+      //   .addTo(map);
 
 
 
       // Insert the layer beneath any symbol layer.
-      const layers = map.getStyle().layers;
+      // const layers = map.getStyle().layers;
 
-      let labelLayerId;
-      for (let i = 0; i < layers.length; i++) {
-        if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
-          labelLayerId = layers[i].id;
-          break;
+      // let labelLayerId;
+      // for (let i = 0; i < layers.length; i++) {
+      //   if (layers[i].type === 'symbol' && layers[i].layout['text-field']) {
+      //     labelLayerId = layers[i].id;
+      //     break;
+      //   }
+      // }
+      map.addSource('route', {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': {
+            'type': 'LineString',
+            'coordinates': [
+              [
+                -78.488151,
+                -0.175536
+              ],
+              [
+                -78.48813,
+                -0.175521
+              ],
+              [
+                -78.488073,
+                -0.17551
+              ],
+              [
+                -78.488074,
+                -0.175615
+              ],
+              [
+                -78.488239,
+                -0.175683
+              ],
+              [
+                -78.489182,
+                -0.180056
+              ],
+              [
+                -78.489856,
+                -0.182274
+              ],
+              [
+                -78.489585,
+                -0.182928
+              ],
+              [
+                -78.488939,
+                -0.184436
+              ],
+              [
+                -78.488639,
+                -0.185144
+              ],
+              [
+                -78.488626,
+                -0.185176
+              ],
+              [
+                -78.488655,
+                -0.185188
+              ],
+              [
+                -78.487811,
+                -0.187087
+              ],
+              [
+                -78.487729,
+                -0.187112
+              ],
+              [
+                -78.487722,
+                -0.187217
+              ],
+              [
+                -78.487517,
+                -0.187596
+              ],
+              [
+                -78.486274,
+                -0.190472
+              ],
+              [
+                -78.486028,
+                -0.190659
+              ],
+              [
+                -78.486033,
+                -0.190695
+              ],
+              [
+                -78.486042,
+                -0.190727
+              ],
+              [
+                -78.485929,
+                -0.191094
+              ],
+              [
+                -78.486038,
+                -0.191146
+              ]
+            ]
+          }
         }
-      }
-
+      });
       map.addLayer({
-        'id': '3d-buildings',
-        'source': 'composite',
-        'source-layer': 'building',
-        'filter': ['==', 'extrude', 'true'],
-        'type': 'fill-extrusion',
-        'minzoom': 15,
+        'id': 'route',
+        'type': 'line',
+        'source': 'route',
+        'layout': {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
         'paint': {
-          'fill-extrusion-color': '#aaa',
-
-          // use an 'interpolate' expression to add a smooth transition effect to the
-          // buildings as the user zooms in
-          'fill-extrusion-height': [
-            'interpolate', ['linear'], ['zoom'],
-            15, 0,
-            15.05, ['get', 'height']
-          ],
-          'fill-extrusion-base': [
-            'interpolate', ['linear'], ['zoom'],
-            15, 0,
-            15.05, ['get', 'min_height']
-          ],
-          'fill-extrusion-opacity': .6
+          'line-color': '#888',
+          'line-width': 8
         }
-      }, labelLayerId);
+      });
     });
 
   }
