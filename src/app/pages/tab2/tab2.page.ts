@@ -24,17 +24,25 @@ export class Tab2Page {
     this.barcodeScanner
       .scan()
       .then((barcodeData) => {
-        console.log('Barcode data', barcodeData);
-
         if (!barcodeData.cancelled) {
           let producto = JSON.parse(barcodeData.text);
 
-          this.dataLocal.guardarProducto(
-            producto.codigo,
-            producto.producto,
-            producto.stock,
-            producto.precio,
-          );
+          this.dataLocal.getProducto(producto.codigo).then((resp) => {
+            console.log(resp['codigo']);
+            if (resp['codigo'] != null) {
+              this.dataLocal.updateProducto(producto.codigo,
+                producto.producto,
+                producto.stock,
+                producto.precio);
+            } else {
+              this.dataLocal.guardarProducto(
+                producto.codigo,
+                producto.producto,
+                producto.stock,
+                producto.precio
+              );
+            }
+          });      
         }
       })
       .catch((err) => {
@@ -45,7 +53,7 @@ export class Tab2Page {
           'QUINOA',
           8,
           17.96,
-      
+
         );
       });
   }

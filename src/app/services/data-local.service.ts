@@ -13,7 +13,7 @@ export class DataLocalService {
   readonly db_table: string = 'productos';
 
   guardados: Producto[] = [];
-
+  // PRODUCTOS!: Array<any>;
   constructor(private platform: Platform, private sqlite: SQLite) {
     this.databaseConn();
   }
@@ -52,29 +52,22 @@ export class DataLocalService {
     stock: number,
     precio: number
   ) {
-    const codigoP = this.getProducto(codigo);
-    console.log(codigoP);
 
-    if (codigoP != null) {
-      this.updateProducto(codigo, producto, stock, precio);
-      alert('Update');
-    } else {
-      this.dbInstance
-        .executeSql(
-          `
+    this.dbInstance
+      .executeSql(
+        `
     INSERT INTO ${this.db_table} (codigo,producto,stock,precio) VALUES ('${codigo}', '${producto}',${stock},${precio})`,
-          []
-        )
-        .then(
-          () => {
-            alert('Success');
-            this.getAllProductos();
-          },
-          (e) => {
-            alert('Error');
-          }
-        );
-    }
+        []
+      )
+      .then(
+        () => {
+          alert('Success');
+          this.getAllProductos();
+        },
+        (e) => {
+          alert('Error');
+        }
+      );
   }
 
   getAllProductos() {
@@ -88,51 +81,52 @@ export class DataLocalService {
             }
           }
         },
-        (e) => {}
+        (e) => { }
       );
     } catch (error) {
       console.log(error);
     }
   }
-  // Update
-  updateProducto(
-    codigo: string,
+
+  updateProducto(codigo: string,
     producto: string,
     stock: number,
-    precio: number
-  ) {
-    let data = [producto, stock, precio];
+    precio: number) {
+    let data = [producto,
+      stock,
+      precio];
+    return this.dbInstance.executeSql(`UPDATE ${this.db_table} SET producto = ?, stock = ?, precio = ? WHERE codigo = '${codigo}'`, data).then(() => {
+      alert('Update');
+    });
 
 
-    return this.dbInstance.executeSql(
-      `UPDATE ${this.db_table} SET producto = ?, stock = ?, precio = ? WHERE codigo = '${codigo}'`,
-      data
-    );
+
   }
 
-  // Get user
-  getProducto(codigo: string): Promise<any> {
-    return this.dbInstance
-      .executeSql(`SELECT * FROM ${this.db_table} WHERE codigo = '?'`, [codigo])
+
+  getProducto(codigo: string) {
+    return this.dbInstance.executeSql(`SELECT * FROM ${this.db_table} WHERE codigo = '${codigo}'`, [])
       .then((res) => {
+
+        if (res.rows.length > 0) {
+          return {
+            "codigo": res.rows.item(0).codigo
+          };
+        }
         return {
-          codigo: res.rows.item(0).codigo,
+          "codigo": null
         };
       });
   }
   deleteProducto(codigo: string) {
-    this.dbInstance
-      .executeSql(
-        `
-        DELETE FROM ${this.db_table} WHERE codigo = '${codigo}'`,
-        []
-      )
+    this.dbInstance.executeSql(`
+        DELETE FROM ${this.db_table} WHERE codigo = '${codigo}'`, [])
       .then(() => {
-        alert('User deleted!');
+        alert("User deleted!");
         this.getAllProductos();
       })
-      .catch((e) => {
-        alert(JSON.stringify(e));
+      .catch(e => {
+        alert(JSON.stringify(e))
       });
   }
 }
