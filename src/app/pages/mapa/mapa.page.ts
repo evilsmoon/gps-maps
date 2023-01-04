@@ -16,6 +16,7 @@ export class MapaPage implements OnInit {
   lng!: number;
 
   constructor(private geo_data: GpsService) {
+
   }
 
   ngOnInit() {
