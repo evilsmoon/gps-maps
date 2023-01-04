@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>TRAZADO</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <ion-list>
+    <ion-item>
+      <ion-label>Date</ion-label>
+      <ion-datetime display-format="DD.MM.YYYY" [(ngModel)]="fecha" (ionChange) = "cambioFecha()"></ion-datetime>
+    </ion-item>
+  </ion-list>
+
+  <ion-grid fixed *ngIf="ruta.length > 0">
+    <ion-row class="ion-justify-content-end">
+      <ion-col size="6">
+        <ion-button expand="block" routerLink="/trazado/mapa">
+          Ver Ruta
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

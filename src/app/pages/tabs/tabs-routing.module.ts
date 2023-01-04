@@ -30,7 +30,20 @@ const routes: Routes = [
     path: '',
     redirectTo: '/app/tabs/tab1',
     pathMatch: 'full'
-  }
+  },
+  {
+    path: 'trazado',
+    children:[
+      {
+        path: '',
+        loadChildren: () => import('../trazado/trazado.module').then( m => m.TrazadoPageModule)
+      },
+      {
+        path: 'mapa',
+        loadChildren: () => import('..//mapa/mapa.module').then( m => m.MapaPageModule)
+      }
+    ]
+  },
 ];
 
 @NgModule({
