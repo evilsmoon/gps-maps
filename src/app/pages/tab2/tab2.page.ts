@@ -9,7 +9,6 @@ import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 export class Tab2Page {
 
   constructor(private dataLocal: DataLocalService, private barcodeScanner: BarcodeScanner,) {
-    this.dataLocal.databaseConn();
   }
   swiperOpts = {
     allowSlidePrev: false,

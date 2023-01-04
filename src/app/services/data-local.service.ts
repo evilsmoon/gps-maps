@@ -15,7 +15,7 @@ export class DataLocalService {
   guardados: Producto[] = [];
   // PRODUCTOS!: Array<any>;
   constructor(private platform: Platform, private sqlite: SQLite) {
-    this.databaseConn();
+
   }
 
   login(email: string, password: string) {

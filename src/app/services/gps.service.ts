@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { Position } from '../models/position.models';
-import { HTTP } from '@awesome-cordova-plugins/http/ngx';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +11,7 @@ export class GpsService {
   private ruta: Position[] = [];
 
 
-  constructor(private native: NativeStorage, private http: HTTP, private httpClient: HttpClient) {
+  constructor(private native: NativeStorage) {
     this.getPositions();
   }
 

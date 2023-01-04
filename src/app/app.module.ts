@@ -4,15 +4,13 @@ import { RouteReuseStrategy } from '@angular/router';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
-import { HttpClientModule } from '@angular/common/http';
 
 // provides
 import { BarcodeScanner } from '@awesome-cordova-plugins/barcode-scanner/ngx';
 import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
-import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
-import { HTTP } from '@awesome-cordova-plugins/http/ngx';
 import { File } from '@awesome-cordova-plugins/file/ngx';
 
 //
@@ -22,14 +20,13 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     BarcodeScanner,
     NativeStorage,
     InAppBrowser,
     SQLite,
     Geolocation,
-    HTTP,
     File,
     FormsModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

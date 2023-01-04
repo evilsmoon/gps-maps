@@ -16,6 +16,7 @@ export class LoginPage implements OnInit {
   password: string = "admin";
   loading: any;
   ngOnInit() {
+    this.dataLocal.databaseConn();
   }
 
    OnSubmitLogin() {
