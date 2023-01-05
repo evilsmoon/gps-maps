@@ -10,13 +10,8 @@ import { Position } from '../../models/position.models';
 })
 export class Tab1Page {
   historial: Position[] = [];
-  // lat!:number;
-  // lon!:number;
 
   constructor( private geo:Geolocation, public geo_data:GpsService ) {
-    // Current
-    // save possition 
-    // this.geo_data.getLines('-78.488217%2C-0.175448%3B-78.486054%2C-0.191163');
   }
 
 ubicacion(){
@@ -30,6 +25,5 @@ ubicacion(){
 
   ionViewWillEnter(){
     this.historial = this.geo_data.Positions;
-    console.log(this.historial);
   }
 }
