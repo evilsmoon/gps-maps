@@ -11,7 +11,6 @@ import { NativeStorage } from '@awesome-cordova-plugins/native-storage/ngx';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Geolocation } from '@awesome-cordova-plugins/geolocation/ngx';
-import { File } from '@awesome-cordova-plugins/file/ngx';
 
 //
 import { AppRoutingModule } from './app-routing.module';
@@ -27,7 +26,6 @@ import { FormsModule } from '@angular/forms';
     InAppBrowser,
     SQLite,
     Geolocation,
-    File,
     FormsModule,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
   ],

@@ -13,7 +13,7 @@ export class Tab1Page {
   // lat!:number;
   // lon!:number;
 
-  constructor( private geo:Geolocation, private geo_data:GpsService ) {
+  constructor( private geo:Geolocation, public geo_data:GpsService ) {
     // Current
     // save possition 
     // this.geo_data.getLines('-78.488217%2C-0.175448%3B-78.486054%2C-0.191163');
@@ -24,10 +24,12 @@ ubicacion(){
       let lat = resp.coords.latitude; 
       let lon = resp.coords.longitude; 
       this.geo_data.savePosition(lat,lon);
+      this.historial = this.geo_data.Positions;
     } )
   }
 
   ionViewWillEnter(){
     this.historial = this.geo_data.Positions;
+    console.log(this.historial);
   }
 }

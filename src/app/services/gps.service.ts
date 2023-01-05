@@ -8,11 +8,10 @@ import { Position } from '../models/position.models';
 export class GpsService {
 
   private historial: Position[] = [];
-  private ruta: Position[] = [];
-
 
   constructor(private native: NativeStorage) {
     this.getPositions();
+    this.getRuta();
   }
 
   async getPositions() {
@@ -25,29 +24,11 @@ export class GpsService {
     this.native.setItem("historial", this.historial);
   }
 
-  saveRuta(rut: Position[]) {
-    this.ruta = rut;
-    this.native.setItem("ruta", this.ruta);
-    this.getRuta();
-  }
-
   async getRuta() {
-    this.ruta = await this.native.getItem("ruta") || [];
+    return (await this.native.getItem("ruta")) || [];
   }
 
   get Positions() {
     return [...this.historial];
   }
-
-  get Ruta() {
-    return [...this.ruta];
-  }
-
-  // getLines(coordinates: string) {
-  //   return this.httpClient.get(`https://api.mapbox.com/directions/v5/mapbox/walking/${coordinates}?alternatives=false&continue_straight=true&geometries=geojson&language=en&overview=simplified&steps=false&access_token=pk.eyJ1IjoiZXZpbHNtb29uIiwiYSI6ImNrd2w4YWllMzF6bHcydm5za2l1dnZqOWwifQ.bQ82x317PQ3LE3kW6TmUIQ`,).subscribe((resp) => {
-  //     console.log(resp);
-
-  //   })
-
-  // }
 }

@@ -19,11 +19,10 @@
   <ion-grid fixed *ngIf="ruta.length > 0">
     <ion-row class="ion-justify-content-end">
       <ion-col size="6">
-        <ion-button expand="block" routerLink="/app/trazado/mapa">
+        <ion-button expand="block" (click)="verMapa()">
           Ver Ruta
         </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
